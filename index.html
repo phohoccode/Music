@@ -7,6 +7,7 @@
     <title>MUSIC UI</title>
     <link rel="icon" href="assets/img/logo.png" type="image/x-icon" />
     <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/responsive.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/fonts/fontawesome.com/releases/v6.4.2/css/all.css" />
@@ -16,7 +17,16 @@
     <div id="app">
         <div class="player item active">
             <div class="dashboard" >
-                <h4>Now playing:</h4>
+                <header>
+                    <h4>Now playing:</h4>
+                    <input type="checkbox" class="switch">
+                    <label for="" class="light">
+                        <i class="fa-solid fa-sun"></i>
+                    </label>
+                    <label for="" class="dark">
+                        <i class="fa-solid fa-moon"></i>
+                    </label>
+                </header>
     
                 <div class="cd">
                     <div class="cd-thumb"></div>
@@ -104,9 +114,9 @@
         </div>
     </div>
     
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="user.js"></script>
     <script src="main.js"></script>
+    <script src="darkMode.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,20 @@
+@media (max-width: 739px) {
+  .name-song:hover {
+    color: var(--black-color);
+  }
+  .btn:hover {
+    color: var(--black-color);
+    background-color: var(--while-color);
+  }
+  .btn:hover .note {
+    display: none;
+  }
+
+  .btn-toggle-play:hover {
+    opacity: 1;
+  }
+  .option:hover {
+    color: var(--black-color);
+    background-color: var(--while-color);
+  }
+}

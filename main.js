@@ -16,6 +16,7 @@ const btnTogglePlay = $(".btn-toggle-play");
 const btnNext = $(".btn-next");
 const btnRandom = $(".btn-random");
 const playList = $(".playlist");
+const btnOptions = $$(".option");
 
 const app = {
   currentIndex: 0,
@@ -65,26 +66,42 @@ const app = {
       path: "assets/music/NoiNayCoAnh-SonTungMTP-4772041.mp3",
       image: "assets/img/Nơi_này_có_anh.jpg",
     },
+    {
+      name: "Hy Vọng Hóa Đau Lòng (Remix)",
+      singer: "Nguyễn Vĩ",
+      path: "assets/music/HyVongHoaDauLong-NguyenVi.mp3",
+      image: "assets/img/nguyen_vy.jpg",
+    },
   ],
 
   render: function () {
     const hmtls = this.songs.map((song, index) => {
       return `
-              <div class="song ${
-                this.currentIndex === index ? "active" : ""
-              }" data-index = ${index}>
-                  <div class="thumb">
-                      <img src="${song.image}" alt="" />
-                  </div>
-                  <div class="body">
-                      <h3 class="title">${song.name}</h3>
-                      <p class="author">${song.singer}</p>
-                  </div>
-                  <div class="option">
-                      <i class="fa-light fa-ellipsis"></i>
-                  </div>
-              </div>
-          `;
+            <div class="song ${
+              this.currentIndex === index ? "active" : ""
+            }" data-index = ${index}>
+            <div class="thumb">
+                <img src="${song.image}" alt="" />
+            </div>
+            <div class="body">
+                <h3 class="title">${song.name}</h3>
+                <p class="author">${song.singer}</p>
+            </div>
+            <div class="option" data-index = ${index}>
+                <i class="fa-light fa-ellipsis icon-option"></i>
+                <div class="option-child" >
+                    <span>  
+                        <i class="fa-light fa-arrow-down-to-line"></i>
+                        Tải xuống
+                    </span>
+                    <span>  
+                        <i class="fa-light fa-trash"></i>
+                        Xóa khỏi danh sách
+                    </span>
+                </div>
+            </div>
+            </div>
+            `;
     });
     $(".playlist").innerHTML = hmtls.join("");
   },
@@ -214,13 +231,20 @@ const app = {
     // xử lý khi click vào song trong playlist
     playList.addEventListener("click", function (e) {
       const songNode = e.target.closest(".song:not(.active)");
-      if (songNode || e.target.closest(".option")) {
-        if (songNode) {
+      const optionNode = e.target.closest(".option");
+      if (songNode || optionNode) {
+        if (songNode && !optionNode) {
           _this.currentIndex = Number(songNode.dataset.index);
           _this.loadCurrentSong();
-          _this.render()
-          _this.scrollActiveSong()
+          _this.render();
+          _this.scrollActiveSong();
           audio.play();
+        }
+        if (optionNode) {
+          btnOptions.forEach((option) => {
+            option.classList.remove("active");
+          });
+          optionNode.classList.toggle("active");
         }
       }
     });
