@@ -17,6 +17,7 @@ const btnNext = $(".btn-next");
 const btnRandom = $(".btn-random");
 const playList = $(".playlist");
 const btnOptions = $$(".option");
+const optionChild = $$('.option-child')
 
 const app = {
   currentIndex: 0,
@@ -230,8 +231,12 @@ const app = {
 
     // xử lý khi click vào song trong playlist
     playList.addEventListener("click", function (e) {
+        //  Dòng này tìm phần tử gần nhất trong cây DOM mà có class là "song" 
+        //  và không có class "active" nếu phần tử đó được click.
       const songNode = e.target.closest(".song:not(.active)");
+        //  Dòng này tìm phần tử gần nhất trong cây DOM mà có class là "option" nếu phần tử đó được click.
       const optionNode = e.target.closest(".option");
+      const optionChildNode = e.target.closest('.option-child')
       if (songNode || optionNode) {
         if (songNode && !optionNode) {
           _this.currentIndex = Number(songNode.dataset.index);
@@ -244,10 +249,13 @@ const app = {
           btnOptions.forEach((option) => {
             option.classList.remove("active");
           });
-          optionNode.classList.toggle("active");
+          if (optionNode && !optionChildNode) {
+            optionNode.classList.toggle("active");
+          } 
         }
       }
     });
+
   },
 
   formatTime: function (time) {

@@ -9,12 +9,13 @@
   .btn:hover .note {
     display: none;
   }
-
   .btn-toggle-play:hover {
     opacity: 1;
   }
   .option:hover {
-    color: var(--black-color);
-    background-color: var(--while-color);
+      background-color: var(--while-color);
   }
+  .song .option:hover > i {
+    color: var(--black-color);
+}
 }

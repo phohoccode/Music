@@ -325,7 +325,7 @@ body {
   cursor: pointer;
 }
 
-.song:hover {
+.song:not(.active):hover {
   transform: scale(0.98);
 }
 
@@ -366,6 +366,7 @@ body {
 }
 .body {
   flex: 1;
+  margin-right: 12px;
 }
 
 .option {
