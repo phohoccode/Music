@@ -15,7 +15,7 @@
 }
 
 *::-webkit-scrollbar {
-  width: 10px;
+  width: 12px;
   height: 0;
 }
 
@@ -24,11 +24,8 @@
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: #ec6ead;
-}
-
-*::-webkit-scrollbar-thumb:hover {
-  background-color: var(--primary-color);
+    border-radius: 8px;
+  background-color: var(--blue-gray);
 }
 
 html {
@@ -314,10 +311,10 @@ body {
 .song {
   display: flex;
   align-items: center;
-  margin-top: 12px;
+  margin-bottom: 12px;
   border-radius: 5px;
   padding: 8px 16px;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
   max-height: 70px;
   background-color: var(--while-color);
@@ -418,6 +415,7 @@ body {
     display: flex;
     align-items: center;
     transition: all 0.2s ease;
+    user-select: none;
 }
 
 .option-child span:hover {
@@ -553,7 +551,18 @@ figure {
 }
 
 /* Dark Mode */
+.body-darkMode {
+    background-color: var(--blue-navy);
+    background-image: none;
+}
+
+h4.dark-mode {
+    color: var(--blue-gray);
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+}
+
 .dashboard.dark-mode {
+    box-shadow: 0 2px 3px rgba(255, 255, 255, 0.3);
   background-color: var(--blue-navy);
 }
 
@@ -564,7 +573,7 @@ figure {
 }
 
 .cd.dark-mode {
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
 .name-song.dark-mode:hover {
@@ -584,7 +593,7 @@ figure {
 }
 
 .btn.dark-mode.active {
-  color: var(--primary-color);
+    color: var(--primary-color);
 }
 
 .btn.dark-mode.active:hover {
@@ -592,12 +601,23 @@ figure {
 }
 
 .btn.dark-mode:hover {
-  background-color: var(--primary-color);
+  background-color: var(--blue-navy);
   box-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
 }
 
+.btn.dark-mode:hover .note {
+    background-color: var(--blue-gray);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+}
+
+.btn.dark-mode:hover .note::after {
+    border-color: var(--blue-gray) transparent transparent transparent;
+} 
+
+
 /* user */
 .content.dark-mode {
+    box-shadow: 0 2px 3px rgba(255, 255, 255, 0.3);
   background-color: var(--blue-navy);
 }
 

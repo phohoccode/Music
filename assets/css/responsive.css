@@ -1,16 +1,37 @@
 @media (max-width: 739px) {
+    
+*::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
   .name-song:hover {
     color: var(--black-color);
+  }
+  .name-song.dark-mode:hover {
+    color: var(--while-color);
   }
   .btn:hover {
     color: var(--black-color);
     background-color: var(--while-color);
   }
+  .btn.active {
+    color: var(--primary-color);
+  }
+  .btn.dark-mode.active:hover {
+    color: var(--primary-color);
+  }
+
   .btn:hover .note {
     display: none;
   }
-  .btn-toggle-play:hover {
-    opacity: 1;
+  .btn-toggle-play {
+    color: var(--black-color);
+    background-color: var(--while-color);  
+  }
+  .btn.dark-mode:hover {
+    color: var(--while-color);
+    background-color: var(--blue-gray);
+    box-shadow: none;
   }
   .option:hover {
       background-color: var(--while-color);
