@@ -11,3 +11,10 @@ options.forEach((option, index) => {
         item.classList.add('active')
     }
 })
+
+// xử lý khi người dùng reload trang hoặc nhấn phím f5
+window.addEventListener('beforeunload', function (e) {
+    // Hủy bỏ sự kiện mặc định (hiển thị hộp thoại xác nhận)
+    e.preventDefault();
+});
+

@@ -92,14 +92,14 @@ const app = {
             <div class="option" data-index = ${index}>
                 <i class="fa-light fa-ellipsis icon-option"></i>
                 <div class="option-child" >
-                    <span class= "download">  
+                    <a class= "download" href = "" download = "" data-index = ${index}>  
                         <i class="fa-light fa-arrow-down-to-line"></i>
                         Tải xuống
-                    </span>
-                    <span class= "delete">  
+                    </a>
+                    <a class= "delete" data-index = "${index}" >  
                         <i class="fa-light fa-trash"></i>
                         Xóa khỏi danh sách
-                    </span>
+                    </a>
                 </div>
             </div>
             </div>
@@ -162,8 +162,8 @@ const app = {
         });
 
         // load ra timeLeft khi thay đổi input
-        progress.addEventListener('input', function(e) {
-            const timeChange =(audio.duration / 100) * e.target.value
+        progress.addEventListener('input', function (e) {
+            const timeChange = (audio.duration / 100) * e.target.value
             timeLeft.textContent = _this.formatTime(timeChange)
         })
 
@@ -244,55 +244,51 @@ const app = {
             const optionChildNode = e.target.closest('.option-child')
             const deleteNode = e.target.closest('.delete')
             const downloadNode = e.target.closest('.download')
-            const bodyElement = e.target.closest('body')
 
-            if (songNode || optionNode) {
-                if (songNode && !optionNode) {
-                    _this.currentIndex = Number(songNode.dataset.index);
-                    _this.loadCurrentSong();
-                    _this.render();
-                    _this.scrollActiveSong();
-                    audio.play();
-                }
-                if (optionNode && !optionChildNode){
-                    optionNode.classList.toggle('active')
-
-
-                    // const optionActiveNode = e.target.closest('.option.active')
-                    console.log('option')
-                    console.log('option active')
-                }
-                // if (optionNode) {
-                //     btnOptions.forEach((option) => {
-                //         option.classList.remove("active");
-                //     });
-                //     if (optionNode && !optionChildNode) {
-                //         optionNode.classList.toggle("active");
-                //     }
-                //     if(optionChildNode) {
-                //         if(deleteNode) {
-                //             const indexDelete = _this.currentIndex
-                //             console.log(indexDelete)
-                //             const checkDelete = confirm('Bạn có chắn chắn muốn xóa bài hát này !')
-                //             if (!checkDelete) {
-                //                 return;
-                //             }
-                //             _this.removeSong()
-                //         }
-                //     }
-                // }
+            // tối ưu việc lặp lại và tăng trải nghiệm người dùng
+            const handleClick = (index) => {
+                _this.currentIndex = index
+                _this.loadCurrentSong()
+                _this.render()
+                _this.scrollActiveSong()
+                audio.play()
             }
+
+            if (songNode && !optionNode) {
+                handleClick(Number(songNode.dataset.index))
+            }
+            if (optionNode && !optionChildNode) {
+                optionNode.classList.toggle('active')
+            }
+            if (downloadNode && !deleteNode) {
+                handleClick(Number(songNode.dataset.index))
+                downloadNode.href = _this.currentSong.path
+                downloadNode.download = `${_this.currentSong.name} - ${_this.currentSong.singer}.mp3`
+            }
+            if (deleteNode && !downloadNode) {
+                const indexDelete = Number(deleteNode.dataset.index)
+                if (_this.isPlaying) {
+                    alert('Trình phát nhạc đang hát, hãy tắt nó để có thể xóa bài hát !')
+                    return
+                }
+                if (_this.songs.length <= 1) {
+                    alert('Còn có mỗi bài hát mà bạn cũng muốn xóa à :((')
+                    return
+                }
+                const checkDelete = confirm('Bạn chắn chắn muốn xóa bài này !')
+                if (!checkDelete) {
+                    return
+                }
+                _this.removeSong(indexDelete)
+            }
+
         });
     },
 
     removeSong: function (index) {
-        if (index > 0 && index < this.songs.length) {
-            this.songs.splice(index, 1)
-            if (index === this.currentIndex && this.isPlaying) {
-                this.nextSong()
-            }
-            this.render()
-        }
+        this.songs.splice(index, 1)
+        this.render()
+        this.loadCurrentSong()
     },
 
     formatTime: function (time) {

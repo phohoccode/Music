@@ -410,23 +410,25 @@ body {
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
 }   
 
-.option-child span {
+.option-child a {
     font-size: 14px;
     display: flex;
     align-items: center;
     transition: all 0.2s ease;
     user-select: none;
+    color: var(--black-color);
+    text-decoration: none;
 }
 
-.option-child span:hover {
+.option-child a:hover {
     color: var(--primary-color);
 }
 
-.option-child span:first-child {
+.option-child a:first-child {
     margin-bottom: 12px;
 }
 
-.option-child span i {
+.option-child a i {
     margin-right: 12px;
 }
 
@@ -557,7 +559,7 @@ figure {
 }
 
 h4.dark-mode {
-    color: var(--blue-gray);
+    color: var(--while-color);
     text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
 }
 
