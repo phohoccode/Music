@@ -6,6 +6,8 @@
   --dark-mode: #121212;
   --blue-navy: #001f3f;
   --blue-gray: #2c3e50;
+  --toast-success: #47d864;
+  --toast-error: #bb0202;
 }
 
 * {
@@ -134,7 +136,7 @@ body {
 .light {
   position: absolute;
   font-size: 12px;
-  right: 43.5px;
+  right: 43px;
   color: #ffd700;
 }
 

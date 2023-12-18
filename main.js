@@ -20,13 +20,30 @@ const btnOptions = $$(".option");
 const optionChild = $$('.option-child')
 const deleteElement = $$('.delete')
 
-
 const app = {
     currentIndex: 0,
     isPlaying: false,
     isRepeat: false,
     isRandom: false,
     songs: [
+        {
+            name: "Hồng Nhan (Kaifo x Ness Remix)",
+            singer: "Jack (G5R)",
+            path: "assets/music/hong-nhan-jack.mp3",
+            image: "assets/img/hong-nhan.jpg",
+        },
+        {
+            name: "Bạc phận",
+            singer: "K-ICM ft. JACK",
+            path: "assets/music/bac-phan-k-icm-jack.mp3",
+            image: "assets/img/bac-phan.png",
+        },
+        {
+            name: "Sóng Gió",
+            singer: "K-ICM x JACK",
+            path: "assets/music/song-gio-k-icm-jack.mp3",
+            image: "assets/img/song-gio.jpg",
+        },
         {
             name: "Chúng Ta Của Hiện Tại",
             singer: "Sơn Tùng MTP",
@@ -77,6 +94,7 @@ const app = {
         },
     ],
 
+    // render ra danh sách bài hát
     render: function () {
         const hmtls = this.songs.map((song, index) => {
             return `
@@ -108,6 +126,7 @@ const app = {
         $(".playlist").innerHTML = hmtls.join("");
     },
 
+    // định nghĩa ra phương thức currentSong trả về vị trí của bài hát trong mảng songs
     defineProperties: function () {
         Object.defineProperty(this, "currentSong", {
             get: function () {
@@ -116,6 +135,7 @@ const app = {
         });
     },
 
+    // xử lý các sự kiện trong trình phát nhạc
     handleEvents: function () {
         const _this = this;
         const cdWidth = cd.offsetWidth;
@@ -144,12 +164,15 @@ const app = {
                 audio.play();
             }
         });
+
+        // kiểm tra nhạc có đang play không
         audio.addEventListener("play", function () {
             player.classList.add("playing");
             _this.isPlaying = true;
             cdThumbAnimate.play();
         });
 
+        // kiểm tra nhạc có pause không
         audio.addEventListener("pause", function () {
             player.classList.remove("playing");
             _this.isPlaying = false;
@@ -183,7 +206,6 @@ const app = {
             // audio.duration / 100 có tác dụng thời gian hiện tại thành đơn vị %
             const seekTime = (audio.duration / 100) * e.target.value;
             audio.currentTime = seekTime;
-            console.log(seekTime)
         });
 
         // xử lý khi next bài hát
@@ -261,9 +283,17 @@ const app = {
                 optionNode.classList.toggle('active')
             }
             if (downloadNode && !deleteNode) {
-                handleClick(Number(songNode.dataset.index))
+                handleClick(Number(downloadNode.dataset.index))
                 downloadNode.href = _this.currentSong.path
                 downloadNode.download = `${_this.currentSong.name} - ${_this.currentSong.singer}.mp3`
+                setTimeout(function() {
+                    _this.toastMessege({
+                        title: 'Đã tải xong !',
+                        message: 'Hãy kiểm tra trong thư mục download của bạn',
+                        type: 'success',
+                        duration: 3000
+                    }) 
+                }, 2000)
             }
             if (deleteNode && !downloadNode) {
                 const indexDelete = Number(deleteNode.dataset.index)
@@ -272,25 +302,86 @@ const app = {
                     return
                 }
                 if (_this.songs.length <= 1) {
-                    alert('Còn có mỗi bài hát mà bạn cũng muốn xóa à :((')
+                    _this.toastMessege({
+                        title: 'Thất bại !',
+                        message: 'Không thể xóa bài hát cuối cùng',
+                        type: 'error',
+                        duration: 3000
+                    })
                     return
                 }
                 const checkDelete = confirm('Bạn chắn chắn muốn xóa bài này !')
-                if (!checkDelete) {
+
+                if (checkDelete) {
+                    _this.removeSong(indexDelete)
+                    _this.toastMessege({
+                        title: 'Thành công !',
+                        message: 'Đã xóa bài hát khỏi danh sách',
+                        type: 'success',
+                        duration: 3000
+                    })
+                } else {
                     return
                 }
-                _this.removeSong(indexDelete)
             }
 
         });
     },
 
+    // hàm toast message
+    toastMessege: function ({
+        title = '',
+        message = '',
+        type = '',
+        duration = 2000
+    }) {
+        const toastParent = document.querySelector('#toast')
+        if (toastParent) {
+            const toastChild = document.createElement('div')
+            const autoRemoveToast = setTimeout(function () {
+                toastParent.removeChild(toastChild)
+            }, duration + 1000)
+            const icons = {
+                success: `fa-regular fa-check`,
+                error: `fa-regular fa-circle-exclamation`
+            }
+            const icon = icons[type]
+            const delay = (duration / 1000).toFixed(2)
+
+            toastChild.classList.add('toast', `toast--${type}`)
+            toastChild.style.animation = `slideInLeft ease 0.3s, fadeOut linear 1s ${delay}s forwards`
+
+            toastChild.innerHTML = `
+                <div class="toast__icon">
+                    <i class="${icon}"></i>
+                </div>
+                <div class="toast__body">
+                    <h3 class="toast__title">${title}</h3>
+                    <p class="toast__message">${message}</p>
+                </div>
+                <div class="toast__close">
+                    <i class="fa-regular fa-xmark"></i>
+                </div>
+            `
+            toastChild.addEventListener('click', function (e) {
+                const closeNode = e.target.closest('.toast__close')
+                if (closeNode) {
+                    toastParent.removeChild(toastChild)
+                }
+                clearTimeout(autoRemoveToast)
+            })
+            toastParent.appendChild(toastChild)
+        }
+    },
+
+    // hàm xóa bài hát
     removeSong: function (index) {
         this.songs.splice(index, 1)
         this.render()
         this.loadCurrentSong()
     },
 
+    // hàm format time ra dạng 00:00
     formatTime: function (time) {
         let minutes = Math.floor(time / 60);
         let seconds = Math.floor(time % 60);
@@ -299,6 +390,7 @@ const app = {
         return minutes + ":" + seconds;
     },
 
+    // hàm next bài hát
     nextSong: function () {
         this.currentIndex++;
         if (this.currentIndex >= this.songs.length) {
@@ -307,6 +399,7 @@ const app = {
         this.loadCurrentSong();
     },
 
+    // hàm prev bài hát
     prevSong: function () {
         this.currentIndex--;
         if (this.currentIndex < 0) {
@@ -315,6 +408,7 @@ const app = {
         this.loadCurrentSong();
     },
 
+    // hàm random bài hát
     randomSong: function () {
         // kiểm tra độ dài của danh sách nhạc
         if (this.songs.length <= 1) {
@@ -328,6 +422,7 @@ const app = {
         this.loadCurrentSong();
     },
 
+    // hiệu ứng cuộn khi song active
     scrollActiveSong: function () {
         setTimeout(() => {
             const songElement = $(".song.active");
@@ -338,6 +433,7 @@ const app = {
         }, 500);
     },
 
+    // load ra thông tin của bài hát
     loadCurrentSong: function () {
         nameSong.textContent = this.currentSong.name;
         nameSinger.textContent = this.currentSong.singer;

@@ -1,4 +1,3 @@
-
 const options = document.querySelectorAll('.nav-bottom__btn')
 const items = document.querySelectorAll('.item')
 
@@ -17,4 +16,6 @@ window.addEventListener('beforeunload', function (e) {
     // Hủy bỏ sự kiện mặc định (hiển thị hộp thoại xác nhận)
     e.preventDefault();
 });
+
+
 
