@@ -16,9 +16,18 @@ const btnTogglePlay = $(".btn-toggle-play");
 const btnNext = $(".btn-next");
 const btnRandom = $(".btn-random");
 const playList = $(".playlist");
-const btnOptions = $$(".option");
-const optionChild = $$('.option-child')
-const deleteElement = $$('.delete')
+// document.addEventListener('DOMContentLoaded', function() {
+//     // Mã JavaScript của bạn sẽ được đặt ở đây
+//     const btnOptions = document.querySelectorAll('.option');
+
+//     btnOptions.forEach(btnOption => {
+//         btnOption.addEventListener('click', function() {
+//            document.querySelector('option.active').classList.remove('active')
+//            btnOption.classList.toggle('active')
+//         });
+//     });
+// });
+
 
 const app = {
     currentIndex: 0,
@@ -258,14 +267,13 @@ const app = {
             _this.isRandom = !_this.isRandom;
             btnRandom.classList.toggle("active", _this.isRandom);
         });
-
         // xử lý khi click vào song trong playlist
         playList.addEventListener("click", function (e) {
             const songNode = e.target.closest(".song:not(.active)");
             const optionNode = e.target.closest(".option");
             const optionChildNode = e.target.closest('.option-child')
-            const deleteNode = e.target.closest('.delete')
             const downloadNode = e.target.closest('.download')
+            const deleteNode = e.target.closest('.delete')
 
             // tối ưu việc lặp lại và tăng trải nghiệm người dùng
             const handleClick = (index) => {
@@ -280,7 +288,9 @@ const app = {
                 handleClick(Number(songNode.dataset.index))
             }
             if (optionNode && !optionChildNode) {
+                _this.currentIndex = Number(optionNode.dataset.index)
                 optionNode.classList.toggle('active')
+                console.log(_this.currentIndex)
             }
             if (downloadNode && !deleteNode) {
                 handleClick(Number(downloadNode.dataset.index))
@@ -293,7 +303,7 @@ const app = {
                         type: 'success',
                         duration: 3000
                     }) 
-                }, 2000)
+                }, 3000)
             }
             if (deleteNode && !downloadNode) {
                 const indexDelete = Number(deleteNode.dataset.index)
@@ -343,7 +353,7 @@ const app = {
             }, duration + 1000)
             const icons = {
                 success: `fa-regular fa-check`,
-                error: `fa-regular fa-circle-exclamation`
+                error: `fa-regular fa-exclamation`
             }
             const icon = icons[type]
             const delay = (duration / 1000).toFixed(2)
@@ -357,7 +367,7 @@ const app = {
                 </div>
                 <div class="toast__body">
                     <h3 class="toast__title">${title}</h3>
-                    <p class="toast__message">${message}</p>
+                    <p class="toast__message toast--${type}">${message}</p>
                 </div>
                 <div class="toast__close">
                     <i class="fa-regular fa-xmark"></i>

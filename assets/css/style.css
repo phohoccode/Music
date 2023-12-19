@@ -5,9 +5,7 @@
   --while-color: #fff;
   --dark-mode: #121212;
   --blue-navy: #001f3f;
-  --blue-gray: #2c3e50;
-  --toast-success: #47d864;
-  --toast-error: #bb0202;
+  --blue-gray: #2c3e50;  
 }
 
 * {
@@ -40,6 +38,7 @@ body {
 }
 
 #app {
+width: 100%;
   height: 100%;
   margin: 0 auto;
   position: relative;
@@ -90,13 +89,18 @@ body {
 }
 
 .dashboard h4 {
-  text-align: center;
   color: var(--primary-color);
+  user-select: none;
+}
+
+.switch-container {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 16px;
 }
 
 .switch {
-  position: absolute;
-  right: 16px;
   appearance: none;
   width: 45px;
   height: 24px;
@@ -135,16 +139,20 @@ body {
 
 .light {
   position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 6px;
   font-size: 12px;
-  right: 43px;
   color: #ffd700;
 }
 
 .dark {
   display: none;
   position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 13px;
-  right: 23px;
+  right: 7px;
   color: var(--while-color);
 }
 
@@ -166,6 +174,7 @@ body {
 .info {
   margin: 16px 0;
   text-align: center;
+  user-select: none;
 }
 
 .name-song {
@@ -220,6 +229,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  user-select: none;
 }
 
 .optional-controls {
@@ -271,7 +281,6 @@ body {
 
 .btn:hover .note {
   display: block;
-  opacity: 1;
 }
 
 .note {
@@ -286,9 +295,15 @@ body {
   background-color: var(--primary-color);
   border-radius: 6px;
   padding: 2px 6px;
-  opacity: 0;
-  transition: opacity 0.5s ease;
+  user-select: none;
+    animation: blur linear 0.3s;
 }
+
+@keyframes blur {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
 
 .note::after {
   position: absolute;
@@ -322,6 +337,7 @@ body {
   background-color: var(--while-color);
   transition: all 0.3s ease;
   cursor: pointer;
+  user-select: none;
 }
 
 .song:not(.active):hover {
@@ -479,7 +495,6 @@ body {
 .background {
   position: relative;
   height: 200px;
-  /* border-radius: 16px 16px 0 0; */
   background-image: linear-gradient(to right, #3494e6, #ec6ead);
 }
 
@@ -493,6 +508,7 @@ figure {
   border-radius: 50%;
   border: 4px solid var(--primary-color);
   overflow: hidden;
+  user-select: none;
 }
 
 .avatar {
@@ -502,6 +518,7 @@ figure {
 
 .content {
   padding: 116px 16px 16px 16px;
+  user-select: none;
 }
 
 .content__title {
@@ -560,79 +577,154 @@ figure {
     background-image: none;
 }
 
-h4.dark-mode {
+/* h4.dark-mode {
+    color: var(--while-color);
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+} */
+
+.app.dark-mode h4 {
     color: var(--while-color);
     text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
 }
 
-.dashboard.dark-mode {
+/* .dashboard.dark-mode {
     box-shadow: 0 2px 3px rgba(255, 255, 255, 0.3);
   background-color: var(--blue-navy);
+} */
+
+.app.dark-mode .dashboard {
+    box-shadow: 0 2px 3px rgba(255, 255, 255, 0.3);
+    background-color: var(--blue-navy);
 }
 
-.name-song.dark-mode,
+/* .name-song.dark-mode,
 .times.dark-mode,
 .body.dark-mode {
   color: var(--while-color);
+} */
+
+.app.dark-mode .name-song,
+.app.dark-mode .times
+/* .app.dark-mode .body  */
+{
+    color: var(--while-color);
 }
 
-.cd.dark-mode {
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-}
-
-.name-song.dark-mode:hover {
+/* .name-song.dark-mode:hover {
   color: var(--primary-color);
+} */
+.app.dark-mode .name-song:hover {
+    color: var(--primary-color);
 }
 
-.optional-controls.dark-mode {
+/* .cd.dark-mode {
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+} */
+
+.app.dark-mode .cd {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+
+/* .optional-controls.dark-mode {
   background-color: var(--blue-navy);
   box-shadow: inset 0px 0px 20px 0px rgba(0, 0, 0, 0.4);
+} */
+
+.app.dark-mode .optional-controls {
+    background-color: var(--blue-navy);
+    box-shadow: inset 0px 0px 20px 0px rgba(0, 0, 0, 0.4);
 }
 
-.btn.dark-mode,
+/* .btn.dark-mode,
 .option.dark-mode {
   background-color: var(--blue-gray);
   color: var(--while-color);
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+} */
+
+.app.dark-mode .btn
+/* .app.dark-mode .option  */
+{
+    background-color: var(--blue-gray);
+    color: var(--while-color);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
 }
 
-.btn.dark-mode.active {
+/* .btn.dark-mode.active {
+    color: var(--primary-color);
+} */
+
+.app.dark-mode .btn.active {
     color: var(--primary-color);
 }
 
-.btn.dark-mode.active:hover {
+/* .btn.dark-mode.active:hover {
   color: var(--while-color);
+} */
+
+.app.dark-mode .btn.active:hover {
+    color: var(--while-color);
 }
 
-.btn.dark-mode:hover {
+/* .btn.dark-mode:hover {
   background-color: var(--blue-navy);
   box-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+} */
+
+.app.dark-mode .btn:hover {
+    background-color: var(--blue-navy);
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
 }
 
-.btn.dark-mode:hover .note {
+/* .btn.dark-mode:hover .note {
     background-color: var(--blue-gray);
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+} */
+
+.app.dark-mode .btn:hover .note {
+    background-color: var(--blue-gray);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
 }
 
-.btn.dark-mode:hover .note::after {
+/* .btn.dark-mode:hover .note::after {
     border-color: var(--blue-gray) transparent transparent transparent;
-} 
+}  */
 
+.app.dark-mode .btn:hover .note::after {
+    border-color: var(--blue-gray) transparent transparent transparent;
+}
 
 /* user */
-.content.dark-mode {
+/* .content.dark-mode {
     box-shadow: 0 2px 3px rgba(255, 255, 255, 0.3);
   background-color: var(--blue-navy);
+} */
+
+.app.dark-mode .content {
+    box-shadow: 0 2px 3px rgba(255, 255, 255, 0.3);
+    background-color: var(--blue-navy);
 }
 
-.content__title.dark-mode,
+/* .content__title.dark-mode,
 .content__sub-title.dark-mode,
 .text-contact.dark-mode,
 .content__des.dark-mode {
   color: var(--while-color);
+} */
+
+.app.dark-mode .content__title,
+.app.dark-mode .content__sub-title,
+.app.dark-mode .text-contact,
+.app.dark-mode .content__des {
+    color: var(--while-color);
 }
 
-.socicals.dark-mode {
+/* .socicals.dark-mode {
   background-color: var(--blue-navy);
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+} */
+
+.app.dark-mode .socicals {
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
 }

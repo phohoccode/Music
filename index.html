@@ -15,18 +15,21 @@
 </head>
 
 <body>
-    <div id="app">
+    <div id="app" class="app">
         <div class="player item active">
             <div class="dashboard" >
                 <header>
                     <h4>Now playing:</h4>
-                    <input type="checkbox" class="switch">
-                    <label for="" class="light">
-                        <i class="fa-solid fa-sun"></i>
-                    </label>
-                    <label for="" class="dark">
-                        <i class="fa-solid fa-moon"></i>
-                    </label>
+                    <div class="switch-container">
+                        <input type="checkbox" class="switch">
+                        <label for="" class="light">
+                            <i class="fa-solid fa-sun"></i>
+                            <!-- <i class="fa-solid fa-sun-bright"></i> -->
+                        </label>
+                        <label for="" class="dark">
+                            <i class="fa-duotone fa-moon"></i>
+                        </label>
+                    </div>
                 </header>
     
                 <div class="cd">
@@ -119,7 +122,6 @@
     
     <script src="user.js"></script>
     <script src="main.js"></script>
-    <script src="darkMode.js"></script>
 </body>
 
 </html>
