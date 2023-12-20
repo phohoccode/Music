@@ -7,9 +7,6 @@
     .name-song:hover {
         color: var(--black-color);
     }
-    /* .name-song.dark-mode:hover {
-        color: var(--while-color);
-    } */
     .app.dark-mode .name-song:hover {
         color: var(--while-color);
     }
@@ -20,9 +17,6 @@
     .btn.active {
         color: var(--primary-color);
     }
-    /* .btn.dark-mode.active:hover {
-        color: var(--primary-color);
-    } */
     .app.dark-mode .btn.active:hover {
         color: var(--primary-color);
     }
@@ -34,11 +28,6 @@
         color: var(--black-color);
         background-color: var(--while-color);  
     }
-    /* .btn.dark-mode:hover {
-        color: var(--while-color);
-        background-color: var(--blue-gray);
-        box-shadow: none;
-    } */
     .app.dark-mode .btn:hover {
         color: var(--while-color);
         background-color: var(--blue-gray);
@@ -79,4 +68,8 @@
             opacity: 0;
         }
     }
+    
+  .socical:hover .profile {
+    display: none;
+  }
 }
