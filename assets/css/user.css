@@ -58,13 +58,17 @@
   font-weight: 600;
   color: var(--primary-color);
   margin-left: 4px;
+  position: relative;
 }
 
-.text-cursor {
-  width: 2px;
-  height: 24px;
-  background-color: var(--primary-color);
-  margin-left: 4px;
+.content__sub-title span::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 24px;
+    background-color: var(--primary-color);
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .content__des {

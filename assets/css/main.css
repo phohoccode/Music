@@ -492,6 +492,11 @@ body {
   background-image: none;
 }
 
+.app.dark-mode .nav-bottom__btn:hover,
+.app.dark-mode .nav-bottom__btn.active {
+    background-color: var(--blue-gray);
+}
+
 .app.dark-mode h4 {
   color: var(--while-color);
   text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
@@ -508,16 +513,40 @@ body {
 }
 
 .app.dark-mode .name-song:hover {
-  color: var(--primary-color);
+  color: var(--while-color);
+  opacity: 0.8;
 }
 
 .app.dark-mode .cd {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
+.app.dark-mode .progress::-webkit-slider-thumb {
+    box-shadow: -400px 0 0 400px var(--blue-gray);
+}
+
 .app.dark-mode .optional-controls {
   background-color: var(--blue-navy);
-  box-shadow: inset 0px 0px 20px 0px rgba(0, 0, 0, 0.4);
+  /* box-shadow: inset 0px 0px 20px 0px rgba(0, 0, 0, 0.3); */
+  box-shadow: rgba(255, 255, 255, 0.3) 0px 0px 5px;
+}
+
+.app.dark-mode .song.active {
+    background-color: var(--blue-gray);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+}
+
+.app.dark-mode .option:hover {
+    background-color: var(--blue-navy);
+}
+
+.app.dark-mode .song.active .option:hover {
+    background-color: var(--while-color);
+}
+
+.app.dark-mode .option-child a:hover {
+    color: var(--black-color);
+    opacity: 0.7;
 }
 
 .app.dark-mode .btn {
@@ -527,7 +556,7 @@ body {
 }
 
 .app.dark-mode .btn.active {
-  color: var(--primary-color);
+  color: var(--blue-navy);
 }
 
 .app.dark-mode .btn.active:hover {
@@ -549,6 +578,15 @@ body {
   border-color: var(--blue-gray) transparent transparent transparent;
 }
 
+.app.dark-mode .background {
+    background-image: linear-gradient(to right, #ec6ead, #3494e6);
+}
+
+.app.dark-mode .background figure {
+    border-color: var(--blue-gray);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
 .app.dark-mode .content {
   box-shadow: 0 2px 3px rgba(255, 255, 255, 0.3);
   background-color: var(--blue-navy);
@@ -559,6 +597,14 @@ body {
 .app.dark-mode .text-contact,
 .app.dark-mode .content__des {
   color: var(--while-color);
+}
+
+.app.dark-mode .content__sub-title span {
+    color: var(--while-color);
+}
+
+.app.dark-mode .content__sub-title span::after {
+    background-color: var(--while-color);
 }
 
 .app.dark-mode .socicals {

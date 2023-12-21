@@ -17,10 +17,14 @@
     .btn.active {
         color: var(--primary-color);
     }
-    .app.dark-mode .btn.active:hover {
-        color: var(--primary-color);
+    .app.dark-mode .btn:hover {
+        color: var(--while-color);
+        background-color: var(--blue-gray);
+        box-shadow: none;
     }
-
+    .app.dark-mode .btn.active:hover {
+        color: var(--blue-navy);
+    }
     .btn:hover .note {
         display: none;
     }
@@ -28,11 +32,7 @@
         color: var(--black-color);
         background-color: var(--while-color);  
     }
-    .app.dark-mode .btn:hover {
-        color: var(--while-color);
-        background-color: var(--blue-gray);
-        box-shadow: none;
-    }
+    .app.dark-mode .option:hover,
     .option:hover {
         background-color: var(--while-color);
     }
